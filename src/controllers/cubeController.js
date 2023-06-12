@@ -19,6 +19,7 @@ router.post('/create', async (req, res) => {
         description,
         imageUrl,
         difficultyLevel: Number(difficultyLevel),
+        owner: req.user._id,
     });
 
     res.redirect('/');
@@ -46,7 +47,7 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
     const { accessory: accessoryId } = req.body;
     const cubeId = req.params.cubeId;
 
-    await cubeManager.attachAccessory(cubeId,accessoryId);
+    await cubeManager.attachAccessory(cubeId, accessoryId);
 
     res.redirect(`/cubes/${cubeId}/details`);
 })
