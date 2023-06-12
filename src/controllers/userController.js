@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const userManager = require('../managers/userManager');
 
 router.get('/register', (req, res) => {
