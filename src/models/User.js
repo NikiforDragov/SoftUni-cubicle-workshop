@@ -3,17 +3,22 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     username: {
-        type:String,
-        unique: true,
+        type: String,
+        required: [true, 'Username is required!'],
+        minLength: [5, 'Username is too short!'],
+        match: [/^[A-Za-z0-9]+$/, 'Username must be alphanumeric!'],
+        unique: [true, 'Username is taken!'],
     },
     password: {
         type: String,
-        // validate: {
-        //     validator: function (value) {
-        //         return this.repeatPassword === value;
-        //     },
-        //     message: 'Passwords mismatch!'
-        // }
+        required: [true, 'Password is required!'],
+        validate: {
+            validator: function (value) {
+                return /^[A-Za-z0-9]+$/.test(value);
+            },
+            message: 'Invalid password characters!'
+        },
+        minLength: [8, 'Password is too short!'],
     },
 });
 
